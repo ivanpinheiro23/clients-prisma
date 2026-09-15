@@ -1,0 +1,22 @@
+# Dependências e Builds
+node_modules/
+
+# Ambientes e Segredos
+.env
+.env.local
+*.env
+
+# DDEV - Ignorar apenas dados temporários/locais (mantém config.yaml e arquivos docker-compose do DDEV)
+.ddev/db_snapshots/
+.ddev/postgres/
+.ddev/.global_commands
+.ddev/.ddev-docker-compose-*.yaml
+
+# Logs e Sistema
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+.idea/
+.vscode/

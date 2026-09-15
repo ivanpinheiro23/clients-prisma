@@ -1,0 +1,23 @@
+services:
+  node:
+    container_name: ddev-${DDEV_SITENAME}-node
+    image: node:22-bullseye
+    working_dir: /app
+    ports:
+      - "3010:3010"
+    volumes:
+      - "../:/app"
+      - "prisma_cache:/root/.cache/prisma"
+    environment:
+      - DATABASE_URL=postgresql://db:db@db:5432/db?schema=public
+      - NODE_EXTRA_CA_CERTS=/app/nscacert_combined.pem
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
+      - COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+    command: sh -c "tail -f /dev/null"
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+
+volumes:
+  prisma_cache:
