@@ -5,7 +5,7 @@ node_modules/
 .env
 .env.local
 *.env
-
+nscacert_combined.pem
 # DDEV - Ignorar apenas dados temporários/locais (mantém config.yaml e arquivos docker-compose do DDEV)
 .ddev/db_snapshots/
 .ddev/postgres/
