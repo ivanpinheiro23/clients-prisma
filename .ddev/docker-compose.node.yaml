@@ -3,6 +3,7 @@ services:
     container_name: ddev-${DDEV_SITENAME}-node
     image: node:22-bullseye
     working_dir: /app
+    command: tail -f /dev/null
     ports:
       - "3010:3010"
     volumes:
@@ -14,7 +15,6 @@ services:
       - NODE_TLS_REJECT_UNAUTHORIZED=0
       - PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
       - COREPACK_ENABLE_DOWNLOAD_PROMPT=0
-    command: sh -c "tail -f /dev/null"
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}
       com.ddev.approot: $DDEV_APPROOT

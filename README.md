@@ -57,7 +57,7 @@ ddev exec -s node npm install --legacy-peer-deps
 
 ### 3. Generate Prisma Client
 
-```bash
+```bashtr
 ddev exec -s node npx prisma generate
 ```
 
