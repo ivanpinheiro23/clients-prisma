@@ -32,6 +32,7 @@ export class ClientsController {
     search(@Query('name') name: string) {
     return this.clientsService.search(name);
   }
+  
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.clientsService.findOne(id);
