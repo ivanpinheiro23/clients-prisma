@@ -54,7 +54,7 @@ ${diff}
 const response = await fetch('https://api.openai.com/v1/responses', {
   method: 'POST',
   headers: {
-    Authorization: \`Bearer \${apiKey}\`,
+    Authorization: `Bearer ${apiKey}`,
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
@@ -66,7 +66,7 @@ const response = await fetch('https://api.openai.com/v1/responses', {
 if (!response.ok) {
   const error = await response.text();
   throw new Error(
-    \`OpenAI request failed: \${response.status} \${error}\`,
+    `OpenAI request failed: ${response.status} ${error}`,
   );
 }
 
