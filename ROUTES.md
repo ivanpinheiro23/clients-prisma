@@ -1,7 +1,5 @@
 # API Routes
 
-Documentation of public HTTP endpoints exposed by the API.
-
 ## Clients
 
 ### GET /clients
