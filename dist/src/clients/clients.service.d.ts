@@ -55,6 +55,16 @@ export declare class ClientsService {
         updatedAt: Date;
         id: number;
     }>;
+    updateEmail(id: number, email: string): Promise<{
+        name: string;
+        taxId: string;
+        age: number | null;
+        email: string | null;
+        phone: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        id: number;
+    }>;
     remove(id: number): Promise<{
         message: string;
     }>;

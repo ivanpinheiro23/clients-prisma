@@ -8,7 +8,7 @@ This document describes the business behavior supported by the client management
 - A client must have a tax identifier (`taxId`).
 - A client's tax identifier must be unique across the client base.
 - A client's age is optional.
-- When provided, a client's age must be a whole number of at least 19.
+- When provided, a client's age must be a whole number of at least 18.
 
 ## Contact Information
 

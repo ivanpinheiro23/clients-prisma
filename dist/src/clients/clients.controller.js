@@ -16,6 +16,7 @@ exports.ClientsController = void 0;
 const common_1 = require("@nestjs/common");
 const clients_service_1 = require("./clients.service");
 const create_client_dto_1 = require("./dto/create-client.dto");
+const update_email_dto_1 = require("./dto/update-email.dto");
 const update_client_dto_1 = require("./dto/update-client.dto");
 let ClientsController = class ClientsController {
     constructor(clientsService) {
@@ -35,6 +36,9 @@ let ClientsController = class ClientsController {
     }
     update(id, updateClientDto) {
         return this.clientsService.update(id, updateClientDto);
+    }
+    updateEmail(id, updateEmailDto) {
+        return this.clientsService.updateEmail(id, updateEmailDto.email);
     }
     remove(id) {
         return this.clientsService.remove(id);
@@ -76,6 +80,14 @@ __decorate([
     __metadata("design:paramtypes", [Number, update_client_dto_1.UpdateClientDto]),
     __metadata("design:returntype", void 0)
 ], ClientsController.prototype, "update", null);
+__decorate([
+    (0, common_1.Patch)(':id/email'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, update_email_dto_1.UpdateEmailDto]),
+    __metadata("design:returntype", void 0)
+], ClientsController.prototype, "updateEmail", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),

@@ -69,6 +69,18 @@ let ClientsService = class ClientsService {
             this.handlePrismaError(error);
         }
     }
+    async updateEmail(id, email) {
+        await this.findOne(id);
+        try {
+            return await this.prisma.client.update({
+                where: { id },
+                data: { email },
+            });
+        }
+        catch (error) {
+            this.handlePrismaError(error);
+        }
+    }
     async remove(id) {
         await this.findOne(id);
         await this.prisma.client.delete({
@@ -84,7 +96,7 @@ let ClientsService = class ClientsService {
         throw error;
     }
     validateAge(age) {
-        if (age <= 18) {
+        if (age < 18) {
             throw new common_1.BadRequestException('Client must be 18 or older');
         }
     }

@@ -27,7 +27,7 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsInt)(),
-    (0, class_validator_1.Min)(19),
+    (0, class_validator_1.Min)(18),
     __metadata("design:type", Number)
 ], CreateClientDto.prototype, "age", void 0);
 __decorate([

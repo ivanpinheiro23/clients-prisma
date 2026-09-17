@@ -1,5 +1,6 @@
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
+import { UpdateEmailDto } from './dto/update-email.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 export declare class ClientsController {
     private readonly clientsService;
@@ -45,6 +46,16 @@ export declare class ClientsController {
         id: number;
     }>;
     update(id: number, updateClientDto: UpdateClientDto): Promise<{
+        name: string;
+        taxId: string;
+        age: number | null;
+        email: string | null;
+        phone: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        id: number;
+    }>;
+    updateEmail(id: number, updateEmailDto: UpdateEmailDto): Promise<{
         name: string;
         taxId: string;
         age: number | null;
