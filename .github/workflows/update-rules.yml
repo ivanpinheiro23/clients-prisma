@@ -1,0 +1,80 @@
+name: AI Business Rules Updater
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-business-rules:
+    # Secrets are not exposed to PRs coming from forks.
+    if: >
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'github-actions[bot]'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Get business rules diff
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git diff "$BASE_SHA" "$HEAD_SHA" -- \
+            "src/**/*.service.ts" \
+            "src/**/dto/*.ts" \
+            "src/**/*.spec.ts" \
+            "prisma/schema.prisma" \
+            > business-rules-diff.txt
+
+      - name: Check for business rules changes
+        id: business_rules_changes
+        run: |
+          if [ -s business-rules-diff.txt ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update BUSINESS_RULES.md with AI
+        if: steps.business_rules_changes.outputs.changed == 'true'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node scripts/update-rules.mjs
+
+      - name: Commit BUSINESS_RULES.md changes
+        if: steps.business_rules_changes.outputs.changed == 'true'
+        run: |
+          if git diff --quiet BUSINESS_RULES.md; then
+            echo "BUSINESS_RULES.md already up to date."
+            exit 0
+          fi
+
+          git config user.name "ivanpinheiro23"
+          git config user.email "ivan.pinheiro@cognizant.com"
+
+          git add BUSINESS_RULES.md
+          git commit -m "docs: update business rules from code changes"
+          git push
