@@ -46,6 +46,22 @@ Update an existing client.
 - `email` (string, optional, valid email)
 - `phone` (string, optional)
 
+### PATCH /clients/:id/email
+Update a client's email address.
+
+**Parameters:**
+- `id` (number, path)
+
+**Request body (`UpdateEmailDto`):**
+- `email` (string, required, valid email address)
+
+**Example:**
+```json
+{
+  "email": "client@example.com"
+}
+```
+
 ### DELETE /clients/:id
 Remove a client by ID.
 

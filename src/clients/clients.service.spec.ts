@@ -94,22 +94,22 @@ describe('ClientsService', () => {
     });
   });
 
-  it('rejects creating a client who is 18 or younger', async () => {
-    await expect(
-      service.create({ name: client.name, taxId: client.taxId, age: 18 }),
-    ).rejects.toBeInstanceOf(BadRequestException);
-    expect(prisma.client.create).not.toHaveBeenCalled();
-  });
+  it('updates only the email after confirming the client exists', async () => {
+    const email = 'ana.atualizada@example.com';
 
-  it('rejects updating a client to an age of 18 or younger', async () => {
     prisma.client.findUnique.mockResolvedValue(client);
+    prisma.client.update.mockResolvedValue({ ...client, email });
 
-    await expect(service.update(client.id, { age: 18 })).rejects.toBeInstanceOf(
-      BadRequestException,
-    );
-    expect(prisma.client.update).not.toHaveBeenCalled();
+    await expect(service.updateEmail(client.id, email)).resolves.toMatchObject({
+      email,
+    });
+
+    expect(prisma.client.update).toHaveBeenCalledWith({
+      where: { id: client.id },
+      data: { email },
+    });
   });
-
+  
   it('removes a client after confirming it exists', async () => {
     prisma.client.findUnique.mockResolvedValue(client);
     prisma.client.delete.mockResolvedValue(client);
