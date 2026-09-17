@@ -27,7 +27,20 @@ Get a single client by ID.
 Create a new client.
 
 **Request body (`CreateClientDto`):**
-- _(fill in fields from create-client.dto.ts)_
+- `name` (string, required)
+- `taxId` (string, required)
+- `email` (string, email, optional)
+- `phone` (string, optional)
+
+**Example:**
+```json
+{
+  "name": "Jane Doe",
+  "taxId": "123456789",
+  "email": "jane@example.com",
+  "phone": "+1234567890"
+}
+```
 
 ### PATCH /clients/:id
 Update an existing client.
@@ -36,7 +49,17 @@ Update an existing client.
 - `id` (number, path)
 
 **Request body (`UpdateClientDto`):**
-- _(fill in fields from update-client.dto.ts)_
+- `name` (string, optional)
+- `taxId` (string, optional)
+- `email` (string, email, optional)
+- `phone` (string, optional)
+
+**Example:**
+```json
+{
+  "email": "jane.doe@example.com"
+}
+```
 
 ### DELETE /clients/:id
 Remove a client by ID.
