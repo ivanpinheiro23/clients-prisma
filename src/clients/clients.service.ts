@@ -22,6 +22,17 @@ export class ClientsService {
     }
   }
 
+  async search(name: string) {
+    return this.prisma.client.findMany({
+      where: {
+        name: {
+          contains: name,
+          mode: 'insensitive',
+        },
+      },
+    });
+  }
+  
   findAll() {
     return this.prisma.client.findMany({
       orderBy: { id: 'asc' },

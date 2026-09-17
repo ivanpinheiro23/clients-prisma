@@ -9,6 +9,14 @@ List all clients.
 
 **Response:** array of `Client`
 
+### GET /clients/search-ivan
+Search clients by name.
+
+**Query parameters:**
+- `name` (string)
+
+**Response:** array of `Client`
+
 ### GET /clients/:id
 Get a single client by ID.
 
