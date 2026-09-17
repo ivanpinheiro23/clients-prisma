@@ -6,52 +6,58 @@ export declare class ClientsService {
     private readonly prisma;
     constructor(prisma: PrismaService);
     create(createClientDto: CreateClientDto): Promise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }>;
     search(name: string): Promise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }[]>;
     findAll(): Prisma.PrismaPromise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }[]>;
     findOne(id: number): Promise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }>;
     update(id: number, updateClientDto: UpdateClientDto): Promise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }>;
     remove(id: number): Promise<{
         message: string;
     }>;
     private handlePrismaError;
+    private validateAge;
 }

@@ -5,49 +5,54 @@ export declare class ClientsController {
     private readonly clientsService;
     constructor(clientsService: ClientsService);
     create(createClientDto: CreateClientDto): Promise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }[]>;
     search(name: string): Promise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }[]>;
     findOne(id: number): Promise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }>;
     update(id: number, updateClientDto: UpdateClientDto): Promise<{
-        name: string;
+        id: number;
         taxId: string;
+        name: string;
+        age: number | null;
         email: string | null;
         phone: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }>;
     remove(id: number): Promise<{
         message: string;

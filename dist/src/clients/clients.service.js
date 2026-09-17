@@ -18,6 +18,9 @@ let ClientsService = class ClientsService {
         this.prisma = prisma;
     }
     async create(createClientDto) {
+        if (createClientDto.age !== undefined) {
+            this.validateAge(createClientDto.age);
+        }
         try {
             return await this.prisma.client.create({
                 data: createClientDto,
@@ -53,6 +56,9 @@ let ClientsService = class ClientsService {
     }
     async update(id, updateClientDto) {
         await this.findOne(id);
+        if (updateClientDto.age !== undefined) {
+            this.validateAge(updateClientDto.age);
+        }
         try {
             return await this.prisma.client.update({
                 where: { id },
@@ -76,6 +82,11 @@ let ClientsService = class ClientsService {
             throw new common_1.ConflictException('A client with this taxId already exists');
         }
         throw error;
+    }
+    validateAge(age) {
+        if (age <= 18) {
+            throw new common_1.BadRequestException('Client must be 18 or older');
+        }
     }
 };
 exports.ClientsService = ClientsService;
