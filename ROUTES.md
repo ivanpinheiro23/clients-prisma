@@ -29,9 +29,18 @@ Create a new client.
 **Request body (`CreateClientDto`):**
 - `name` (string, required)
 - `taxId` (string, required)
-- `age` (integer, optional, minimum: `19`)
-- `email` (string, optional, valid email)
+- `email` (string, email, optional)
 - `phone` (string, optional)
+
+**Example:**
+```json
+{
+  "name": "Jane Doe",
+  "taxId": "123456789",
+  "email": "jane@example.com",
+  "phone": "+1234567890"
+}
+```
 
 ### PATCH /clients/:id
 Update an existing client.
@@ -42,23 +51,13 @@ Update an existing client.
 **Request body (`UpdateClientDto`):**
 - `name` (string, optional)
 - `taxId` (string, optional)
-- `age` (integer, optional, minimum: `19`)
-- `email` (string, optional, valid email)
+- `email` (string, email, optional)
 - `phone` (string, optional)
-
-### PATCH /clients/:id/email
-Update a client's email address.
-
-**Parameters:**
-- `id` (number, path)
-
-**Request body (`UpdateEmailDto`):**
-- `email` (string, required, valid email address)
 
 **Example:**
 ```json
 {
-  "email": "client@example.com"
+  "email": "jane.doe@example.com"
 }
 ```
 
