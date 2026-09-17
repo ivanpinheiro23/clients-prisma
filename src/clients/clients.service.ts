@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -13,6 +14,11 @@ export class ClientsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createClientDto: CreateClientDto) {
+    if (createClientDto.age !== undefined) {
+      
+      this.validateAge(createClientDto.age);
+    }
+
     try {
       return await this.prisma.client.create({
         data: createClientDto,
@@ -53,11 +59,27 @@ export class ClientsService {
 
   async update(id: number, updateClientDto: UpdateClientDto) {
     await this.findOne(id);
+    if (updateClientDto.age !== undefined) {
+      this.validateAge(updateClientDto.age);
+    }
 
     try {
       return await this.prisma.client.update({
         where: { id },
         data: updateClientDto,
+      });
+    } catch (error) {
+      this.handlePrismaError(error);
+    }
+  }
+
+  async updateEmail(id: number, email: string) {
+    await this.findOne(id);
+
+    try {
+      return await this.prisma.client.update({
+        where: { id },
+        data: { email },
       });
     } catch (error) {
       this.handlePrismaError(error);
@@ -83,5 +105,11 @@ export class ClientsService {
     }
 
     throw error;
+  }
+
+  private validateAge(age: number): void {
+    if (age <= 18) {
+      throw new BadRequestException('Client must be 18 or older');
+    }
   }
 }
