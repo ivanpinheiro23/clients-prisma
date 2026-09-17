@@ -31,7 +31,7 @@ export class ClientsController {
     return this.clientsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch(':id-test')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateClientDto: UpdateClientDto,
