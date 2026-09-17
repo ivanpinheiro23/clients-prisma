@@ -1,0 +1,420 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Clients API",
+    "description": "REST API for client management.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3010",
+      "description": "Local development"
+    },
+    {
+      "url": "http://clients-prisma.ddev.site:3080",
+      "description": "DDEV"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Clients",
+      "description": "Client operations"
+    }
+  ],
+  "paths": {
+    "/clients": {
+      "post": {
+        "tags": ["Clients"],
+        "summary": "Create a client",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateClientDto"
+              },
+              "example": {
+                "name": "Acme Client",
+                "taxId": "123456789",
+                "age": 18,
+                "email": "contact@acme.com",
+                "phone": "+55 11 99999-9999"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Client created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Clients"],
+        "summary": "List or search clients",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/NameQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of clients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ClientId"
+        }
+      ],
+      "get": {
+        "tags": ["Clients"],
+        "summary": "Find a client by ID",
+        "responses": {
+          "200": {
+            "description": "Client found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Clients"],
+        "summary": "Update a client",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateClientDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Client updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Clients"],
+        "summary": "Delete a client",
+        "responses": {
+          "200": {
+            "description": "Client deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/clients/{id}/email": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ClientId"
+        }
+      ],
+      "patch": {
+        "tags": ["Clients"],
+        "summary": "Update only the client's email",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmailDto"
+              },
+              "example": {
+                "email": "updated@example.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "ClientId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Numeric client ID",
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1
+        }
+      },
+      "NameQuery": {
+        "name": "name",
+        "in": "query",
+        "required": false,
+        "description": "Partial name for a case-insensitive search",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "Client": {
+        "type": "object",
+        "required": ["id", "name", "taxId", "createdAt", "updatedAt"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Ana Souza"
+          },
+          "taxId": {
+            "type": "string",
+            "example": "00000000001"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 18,
+            "nullable": true,
+            "example": 30
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "nullable": true,
+            "example": "ana.souza@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "example": "+55 11 99999-0001"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateClientDto": {
+        "type": "object",
+        "required": ["name", "taxId"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "example": "Acme Client"
+          },
+          "taxId": {
+            "type": "string",
+            "minLength": 1,
+            "example": "123456789"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 18,
+            "example": 18
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "contact@acme.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+55 11 99999-9999"
+          }
+        }
+      },
+      "UpdateClientDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "taxId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 18
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateEmailDto": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "minLength": 1,
+            "example": "updated@example.com"
+          }
+        }
+      },
+      "DeleteResponse": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Client with id 1 deleted successfully"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "example": 400
+          },
+          "message": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "error": {
+            "type": "string",
+            "example": "Bad Request"
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Invalid data",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "Tax ID already registered",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Client not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}
