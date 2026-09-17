@@ -189,7 +189,7 @@ npx prisma migrate deploy
 Populate the database with 20 mock clients:
 
 ```bash
-npm run prisma:seed
+ddev exec -s node npm run prisma:seed
 ```
 
 The seed is idempotent and can be executed more than once without creating duplicate clients.

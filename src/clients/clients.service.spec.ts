@@ -1,4 +1,8 @@
-import { ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { ClientsService } from './clients.service';
 
@@ -18,6 +22,7 @@ describe('ClientsService', () => {
     id: 1,
     name: 'Ana Souza',
     taxId: '00000000001',
+    age: 30,
     email: 'ana.souza@example.com',
     phone: '+55 11 99999-0001',
     createdAt: new Date(),
@@ -41,6 +46,7 @@ describe('ClientsService', () => {
     const data = {
       name: client.name,
       taxId: client.taxId,
+      age: client.age,
       email: client.email,
       phone: client.phone,
     };
@@ -124,7 +130,7 @@ describe('ClientsService', () => {
     prisma.client.create.mockRejectedValue(error);
 
     await expect(
-      service.create({ name: client.name, taxId: client.taxId }),
+      service.create({ name: client.name, taxId: client.taxId, age: client.age }),
     ).rejects.toBeInstanceOf(ConflictException);
   });
 });
