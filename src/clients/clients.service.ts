@@ -40,6 +40,12 @@ export class ClientsService {
     return client;
   }
 
+  findByTaxId(taxId: string) {
+    return this.prisma.client.findUnique({
+      where: { taxId },
+    });
+  }
+
   async update(id: number, updateClientDto: UpdateClientDto) {
     await this.findOne(id);
 

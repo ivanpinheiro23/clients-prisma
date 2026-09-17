@@ -43,4 +43,8 @@ export class ClientsController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.clientsService.remove(id);
   }
-}
+
+  @Get('tax-id/:taxId')
+  findByTaxId(@Param('taxId') taxId: string) {
+    return this.clientsService.findByTaxId(taxId);
+  }
