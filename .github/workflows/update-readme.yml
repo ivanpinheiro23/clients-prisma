@@ -71,7 +71,7 @@ jobs:
             exit 0
           fi
 
-          git config user.name "ivanpinheiro23"
+          git config user.name "agent[bot]"
           git config user.email "ivan.pinheiro@cognizant.com"
 
           git add ROUTES.md
