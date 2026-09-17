@@ -16,7 +16,7 @@ case_study: "Documentation Refresh Agent"
 End-to-End Without Handoffs — Multi-Agent Workflow Orchestration Across Teams.
 
 ## IDEA
-Build a Documentation Refresh Agent workflow that monitors pull requests and code changes, identifies their impact on technical documentation, and autonomously proposes synchronized updates to Markdown files such as README files, API guides, route documentation, and FAQs. Multiple specialized AI agents collaborate from change detection through documentation validation, while a human reviewer retains final approval before documentation changes are merged.
+Build a Documentation Refresh Agent workflow that monitors pull requests and code changes, identifies their impact on technical documentation, and autonomously proposes synchronized updates to Markdown files such as README files, API guides and route documentation. Multiple specialized AI agents collaborate from change detection through documentation validation, while a human reviewer retains final approval before documentation changes are merged.
 
 ## HOW_IT_WORKS
 When a pull request changes application code, API routes, data models, DTOs, or other documented behavior, the agents analyze the diff and identify which Markdown documentation is impacted. They generate and validate the required documentation updates, then add those changes as a new commit directly to the same pull request. The PR can only proceed to merge after the documentation changes are included and reviewed, ensuring code and documentation stay synchronized within a single delivery flow.
