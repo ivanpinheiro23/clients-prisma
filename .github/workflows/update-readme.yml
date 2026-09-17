@@ -14,7 +14,9 @@ permissions:
 jobs:
   update-readme:
     # Secrets are not exposed to PRs coming from forks.
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    if: >
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'github-actions[bot]'
 
     runs-on: ubuntu-latest
 
@@ -57,24 +59,23 @@ jobs:
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
-
-      - name: Update README with AI
+            - name: Update ROUTES.md with AI
         if: steps.api_changes.outputs.changed == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: node scripts/update-readme.mjs
+        run: node scripts/update-routes.mjs
 
-      - name: Commit README changes
+      - name: Commit ROUTES.md changes
         if: steps.api_changes.outputs.changed == 'true'
         run: |
-          if git diff --quiet README.md; then
-            echo "README already up to date."
+          if git diff --quiet ROUTES.md; then
+            echo "ROUTES.md already up to date."
             exit 0
           fi
 
-          git config user.name "ai-readme-agent"
-          git config user.email "ai-readme-agent@users.noreply.github.com"
+          git config user.name "ivanpinheiro23"
+          git config user.email "ivan.pinheiro@cognizant.com"
 
-          git add README.md
-          git commit -m "docs: update README from API changes"
+          git add ROUTES.md
+          git commit -m "docs: update ROUTES.md from API changes"
           git push
