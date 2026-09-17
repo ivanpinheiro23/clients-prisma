@@ -13,7 +13,7 @@ case_study: "Documentation Refresh Agent"
 > or delete any of the six headings, even if a section feels short for your project.
 
 ## THEME
-End-to-End Without Handoffs — Multi-Agent Workflow Orchestration Across Teams.
+End-to-End Without Handoffs - Multi-Agent Workflow Orchestration Across Teams.
 
 ## IDEA
 Build a Documentation Refresh Agent workflow that monitors pull requests and code changes, identifies their impact on technical documentation, and autonomously proposes synchronized updates to Markdown files such as README files, API guides and route documentation. Multiple specialized AI agents collaborate from change detection through documentation validation, while a human reviewer retains final approval before documentation changes are merged.
