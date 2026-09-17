@@ -82,7 +82,17 @@ For a deploy/CI environment, use instead:
 ddev exec -s node npx prisma migrate deploy
 ```
 
-### 5. Start the API
+### 5. Load seed data
+
+Populate the database with 20 mock clients:
+
+```bash
+ddev exec -s node npm run prisma:seed
+```
+
+The seed is idempotent and can be executed more than once without creating duplicate clients.
+
+### 6. Start the API
 
 ```bash
 ddev exec -s node npm run start:dev
@@ -95,7 +105,7 @@ ddev restart
 ddev exec -s node npm run start:dev
 ```
 
-### 6. Access the API
+### 7. Access the API
 
 The `node` service exposes port `3010` through DDEV's router:
 
@@ -166,7 +176,17 @@ For a deploy/CI environment, use instead, don't need in local machine:
 npx prisma migrate deploy
 ```
 
-## 5. Start the API
+## 5. Load seed data
+
+Populate the database with 20 mock clients:
+
+```bash
+npm run prisma:seed
+```
+
+The seed is idempotent and can be executed more than once without creating duplicate clients.
+
+## 6. Start the API
 
 ```bash
 ddev exec -s node npm run start:dev
