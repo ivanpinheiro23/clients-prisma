@@ -27,7 +27,11 @@ Get a single client by ID.
 Create a new client.
 
 **Request body (`CreateClientDto`):**
-- _(fill in fields from create-client.dto.ts)_
+- `name` (string, required)
+- `taxId` (string, required)
+- `age` (integer, optional, minimum: `19`)
+- `email` (string, optional, valid email)
+- `phone` (string, optional)
 
 ### PATCH /clients/:id
 Update an existing client.
@@ -36,7 +40,11 @@ Update an existing client.
 - `id` (number, path)
 
 **Request body (`UpdateClientDto`):**
-- _(fill in fields from update-client.dto.ts)_
+- `name` (string, optional)
+- `taxId` (string, optional)
+- `age` (integer, optional, minimum: `19`)
+- `email` (string, optional, valid email)
+- `phone` (string, optional)
 
 ### DELETE /clients/:id
 Remove a client by ID.
