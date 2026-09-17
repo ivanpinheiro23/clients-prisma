@@ -1,5 +1,5 @@
 ---
-associate: "POD-1037"
+associate: "Amanda Veras"
 case_study: "Documentation Refresh Agent"
 ---
 
