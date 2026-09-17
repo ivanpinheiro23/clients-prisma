@@ -38,6 +38,22 @@ Update an existing client.
 **Request body (`UpdateClientDto`):**
 - _(fill in fields from update-client.dto.ts)_
 
+### PATCH /clients/:id/email
+Update a client's email address.
+
+**Parameters:**
+- `id` (number, path)
+
+**Request body (`UpdateEmailDto`):**
+- `email` (string, required, valid email address)
+
+**Example:**
+```json
+{
+  "email": "client@example.com"
+}
+```
+
 ### DELETE /clients/:id
 Remove a client by ID.
 
