@@ -59,7 +59,8 @@ jobs:
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
-            - name: Update ROUTES.md with AI
+
+      - name: Update ROUTES.md with AI
         if: steps.api_changes.outputs.changed == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
