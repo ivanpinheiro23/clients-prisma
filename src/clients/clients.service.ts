@@ -15,6 +15,7 @@ export class ClientsService {
 
   async create(createClientDto: CreateClientDto) {
     if (createClientDto.age !== undefined) {
+      
       this.validateAge(createClientDto.age);
     }
 
