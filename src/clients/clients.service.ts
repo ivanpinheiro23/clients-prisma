@@ -108,7 +108,7 @@ export class ClientsService {
   }
 
   private validateAge(age: number): void {
-    if (age <= 18) {
+    if (age < 18) {
       throw new BadRequestException('Client must be 18 or older');
     }
   }

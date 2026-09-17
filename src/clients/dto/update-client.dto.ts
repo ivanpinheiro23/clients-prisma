@@ -20,7 +20,7 @@ export class UpdateClientDto {
 
   @IsOptional()
   @IsInt()
-  @Min(19)
+  @Min(18)
   age?: number;
 
   @IsOptional()

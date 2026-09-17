@@ -18,7 +18,7 @@ export class CreateClientDto {
 
   @IsOptional()
   @IsInt()
-  @Min(19)
+  @Min(18)
   age?: number;
 
   @IsOptional()
