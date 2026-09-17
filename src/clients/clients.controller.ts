@@ -27,7 +27,7 @@ export class ClientsController {
     return this.clientsService.findAll();
   }
 
-  @Get('search')
+  @Get('search-test')
     search(@Query('name') name: string) {
     return this.clientsService.search(name);
   }
