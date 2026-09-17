@@ -9,7 +9,7 @@ List all clients.
 
 **Response:** array of `Client`
 
-### GET /clients/search-test
+### GET /clients/search
 Search clients by name.
 
 **Query parameters:**
