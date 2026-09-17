@@ -64,6 +64,19 @@ export class ClientsService {
     }
   }
 
+  async updateEmail(id: number, email: string) {
+    await this.findOne(id);
+
+    try {
+      return await this.prisma.client.update({
+        where: { id },
+        data: { email },
+      });
+    } catch (error) {
+      this.handlePrismaError(error);
+    }
+  }
+
   async remove(id: number) {
     await this.findOne(id);
 

@@ -88,6 +88,20 @@ describe('ClientsService', () => {
     });
   });
 
+  it('updates only the email after confirming the client exists', async () => {
+    const email = 'ana.atualizada@example.com';
+    prisma.client.findUnique.mockResolvedValue(client);
+    prisma.client.update.mockResolvedValue({ ...client, email });
+
+    await expect(service.updateEmail(client.id, email)).resolves.toMatchObject({
+      email,
+    });
+    expect(prisma.client.update).toHaveBeenCalledWith({
+      where: { id: client.id },
+      data: { email },
+    });
+  });
+
   it('removes a client after confirming it exists', async () => {
     prisma.client.findUnique.mockResolvedValue(client);
     prisma.client.delete.mockResolvedValue(client);
