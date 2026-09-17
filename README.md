@@ -92,7 +92,15 @@ ddev exec -s node npm run prisma:seed
 
 The seed is idempotent and can be executed more than once without creating duplicate clients.
 
-### 6. Start the API
+### 6. Run unit tests
+
+Execute the unit tests for the clients CRUD inside the DDEV Node container:
+
+```bash
+ddev exec -s node npm test -- --runInBand
+```
+
+### 7. Start the API
 
 ```bash
 ddev exec -s node npm run start:dev
@@ -105,7 +113,7 @@ ddev restart
 ddev exec -s node npm run start:dev
 ```
 
-### 7. Access the API
+### 8. Access the API
 
 The `node` service exposes port `3010` through DDEV's router:
 
